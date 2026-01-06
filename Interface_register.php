@@ -465,31 +465,7 @@
                     <?php endif; ?>
                 </div>
 
-                <div class="role-selector">
-                    <label>Select Your Role</label>
-                    <div class="role-options">
-                        <div class="role-option">
-                            <input type="radio" name="role" value="admin" id="role-admin">
-                            <label for="role-admin" class="role-card">
-                                <div class="role-icon">
-                                    <i class="fas fa-user-shield"></i>
-                                </div>
-                                <div class="role-title">Admin</div>
-                                <div class="role-description">Manage everything</div>
-                            </label>
-                        </div>
-                        <div class="role-option">
-                            <input type="radio" name="role" value="user admin" id="role-user" checked>
-                            <label for="role-user" class="role-card">
-                                <div class="role-icon">
-                                    <i class="fas fa-user-gear"></i>
-                                </div>
-                                <div class="role-title">User Admin</div>
-                                <div class="role-description">Manage your registrations</div>
-                            </label>
-                        </div>
-                    </div>
-                </div>
+
 
                 <button type="submit" class="btn-register">
                     <i class="fas fa-user-plus"></i>

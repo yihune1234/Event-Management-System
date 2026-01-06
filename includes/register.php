@@ -6,8 +6,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
     $phone_number = trim($_POST['phone_number']);
-    // Default to 'user admin' role if not specified
-    $role = isset($_POST['role']) ? $_POST['role'] : 'user admin';
+    // Default to 'user' role for all new signups
+    $role = 'user';
 
     $errors = [];
 

@@ -452,6 +452,10 @@ require 'includes/admin_dashboard_logic.php';
                     <i class="fas fa-paper-plane"></i>
                     <span>Communications</span>
                 </a>
+                <a href="#user-management" class="nav-item" onclick="showSection('user-management', this)">
+                    <i class="fas fa-user-gear"></i>
+                    <span>User Management</span>
+                </a>
             </nav>
             
             <div class="sidebar-footer">
@@ -656,6 +660,55 @@ require 'includes/admin_dashboard_logic.php';
                     </div>
                 </section>
 
+                <!-- User Management Section -->
+                <section id="user-management" class="content-section">
+                    <div class="section-header">
+                        <h2>System Users</h2>
+                    </div>
+                    
+                    <div class="card-table-wrapper">
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Registered Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($users as $user): ?>
+                                    <tr>
+                                        <td style="font-weight: 600;"><?php echo htmlspecialchars($user['username']); ?></td>
+                                        <td><?php echo htmlspecialchars($user['email']); ?></td>
+                                        <td>
+                                            <span class="badge <?php echo $user['role'] === 'admin' ? 'badge-info' : 'badge-success'; ?>">
+                                                <?php echo ucfirst($user['role']); ?>
+                                            </span>
+                                        </td>
+                                        <td><?php echo date('M d, Y', strtotime($user['created_at'])); ?></td>
+                                        <td>
+                                            <?php if ($user['id'] != $_SESSION['user_id']): ?>
+                                                <?php if ($user['role'] !== 'admin'): ?>
+                                                    <button class="btn-action btn-edit" title="Promote to Admin" onclick="promoteUser(<?php echo $user['id']; ?>)">
+                                                        <i class="fas fa-user-shield"></i>
+                                                    </button>
+                                                <?php endif; ?>
+                                                <button class="btn-action btn-delete" title="Delete User" onclick="deleteUser(<?php echo $user['id']; ?>)">
+                                                    <i class="fas fa-user-minus"></i>
+                                                </button>
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                
                 <!-- Communication Section -->
                 <section id="reminders" class="content-section">
                     <div class="section-header">
@@ -750,6 +803,52 @@ require 'includes/admin_dashboard_logic.php';
         function deleteEvent(id) {
             if(confirm('Are you sure you want to delete this event? This action cannot be undone.')) {
                 alert('Event ID ' + id + ' deleted (Simulated)');
+            }
+        }
+
+        function promoteUser(id) {
+            if(confirm('Are you sure you want to promote this user to Admin?')) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '';
+                
+                const actionInput = document.createElement('input');
+                actionInput.type = 'hidden';
+                actionInput.name = 'action';
+                actionInput.value = 'promote_user';
+                
+                const idInput = document.createElement('input');
+                idInput.type = 'hidden';
+                idInput.name = 'user_id';
+                idInput.value = id;
+                
+                form.appendChild(actionInput);
+                form.appendChild(idInput);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+
+        function deleteUser(id) {
+            if(confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '';
+                
+                const actionInput = document.createElement('input');
+                actionInput.type = 'hidden';
+                actionInput.name = 'action';
+                actionInput.value = 'delete_user';
+                
+                const idInput = document.createElement('input');
+                idInput.type = 'hidden';
+                idInput.name = 'user_id';
+                idInput.value = id;
+                
+                form.appendChild(actionInput);
+                form.appendChild(idInput);
+                document.body.appendChild(form);
+                form.submit();
             }
         }
     </script>

@@ -32,12 +32,27 @@ function getEvents($conn) {
     return $events;
 }
 
+// Function to get all users from the database
+function getUsers($conn) {
+    $query = "SELECT id, username, email, phone_number, role, created_at FROM users ORDER BY created_at DESC";
+    $result = mysqli_query($conn, $query);
+    $users = [];
+    
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $users[] = $row;
+        }
+    }
+    
+    return $users;
+}
+
 // Function to get attendees for a specific event
 function getAttendees($conn, $event_id) {
-    $query = "SELECT u.name, u.email, a.registration_date 
-              FROM attendees a 
-              JOIN users u ON a.user_id = u.id 
-              WHERE a.event_id = ?";
+    $query = "SELECT u.username as name, u.email, r.registration_date 
+              FROM registrations r 
+              JOIN users u ON r.user_id = u.id 
+              WHERE r.event_id = ?";
     
     $stmt = mysqli_prepare($conn, $query);
     mysqli_stmt_bind_param($stmt, "i", $event_id);
@@ -79,15 +94,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $stmt->bind_param("ssssssi", $eventName, $eventDate, $endDate, $eventDescription, $eventOrganizer, $eventLocation, $admin_id);
             if ($stmt->execute()) {
-                echo "Event added successfully!";
-               
-                }
+                header("Location: admin_dashboard.php?action=event_created");
+                exit();
             } else {
-                echo "<script>alert('Failed to create event: " . mysqli_stmt_error($stmt) . "');</script>";
+                echo "<script>alert('Failed to create event: " . $stmt->error . "');</script>";
             }
 
             // Close statement
-            mysqli_stmt_close($stmt);
+            $stmt->close();
         }
     } elseif (isset($_POST['action']) && $_POST['action'] == 'send_reminders') {
         $event_id = $_POST['reminder-event'];
@@ -99,29 +113,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = mysqli_prepare($conn, $eventQuery);
             mysqli_stmt_bind_param($stmt, "i", $event_id);
             mysqli_stmt_execute($stmt);
-            $_SESSION['event_id'] = $event_id;
             $result = mysqli_stmt_get_result($stmt);
             $event = mysqli_fetch_assoc($result);
 
             foreach ($attendees as $attendee) {
-                $to = $attendee['email'];
-                $subject = "Reminder: " . $event['title'];
-                $message = "Hello " . $attendee['name'] . ",\n\n";
-                $message .= "This is a reminder for the upcoming event: " . $event['title'] . "\n";
-                $message .= "Date: " . $event['start_date'] . "\n";
-                $message .= "Venue: " . $event['venue'] . "\n\n";
-                $message .= "We look forward to seeing you there!";
-                $headers = "From: your-email@example.com\r\n";
-                
-               
+                // Here you would send SMS or Email
+                // For now we'll just log it in notifications table
+                $msg = "Reminder for " . $event['title'] . " on " . $event['start_date'];
+                $sql = "INSERT INTO notifications (event_id, message) VALUES (?, ?)";
+                $stmt2 = mysqli_prepare($conn, $sql);
+                mysqli_stmt_bind_param($stmt2, "is", $event_id, $msg);
+                mysqli_stmt_execute($stmt2);
             }
             
-            echo "<script>alert('Reminders sent successfully!');</script>";
+            header("Location: admin_dashboard.php?action=notifications_sent");
+            exit();
         } else {
             echo "<script>alert('Please select an event!');</script>";
         }
+    } elseif (isset($_POST['action']) && $_POST['action'] == 'delete_user') {
+        $user_id_to_delete = $_POST['user_id'];
+        if ($user_id_to_delete != $_SESSION['user_id']) {
+            $sql = "DELETE FROM users WHERE id = ?";
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_bind_param($stmt, "i", $user_id_to_delete);
+            mysqli_stmt_execute($stmt);
+            header("Location: admin_dashboard.php?action=user_deleted");
+            exit();
+        }
+    } elseif (isset($_POST['action']) && $_POST['action'] == 'promote_user') {
+        $user_id_to_promote = $_POST['user_id'];
+        $sql = "UPDATE users SET role = 'admin' WHERE id = ?";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $user_id_to_promote);
+        mysqli_stmt_execute($stmt);
+        header("Location: admin_dashboard.php?action=user_promoted");
+        exit();
     }
-
+}
 
 $events = getEvents($conn);
+$users = getUsers($conn);
 ?>
