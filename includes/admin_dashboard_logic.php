@@ -149,6 +149,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         mysqli_stmt_execute($stmt);
         header("Location: admin_dashboard.php?action=user_promoted");
         exit();
+    } elseif (isset($_POST['action']) && $_POST['action'] == 'create_user') {
+        $username = trim($_POST['username']);
+        $email = trim($_POST['email']);
+        $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
+        $phone = trim($_POST['phone_number']);
+        $role = $_POST['role'];
+
+        $sql = "INSERT INTO users (username, email, password, phone_number, role) VALUES (?, ?, ?, ?, ?)";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "sssss", $username, $email, $password, $phone, $role);
+        
+        if (mysqli_stmt_execute($stmt)) {
+            header("Location: admin_dashboard.php?action=user_created");
+            exit();
+        } else {
+            echo "<script>alert('Error creating user: " . mysqli_error($conn) . "');</script>";
+        }
+    } elseif (isset($_POST['action']) && $_POST['action'] == 'update_user') {
+        $user_id = $_POST['user_id'];
+        $username = trim($_POST['username']);
+        $email = trim($_POST['email']);
+        $phone = trim($_POST['phone_number']);
+        $role = $_POST['role'];
+
+        if (!empty($_POST['password'])) {
+            $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
+            $sql = "UPDATE users SET username = ?, email = ?, password = ?, phone_number = ?, role = ? WHERE id = ?";
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_bind_param($stmt, "sssssi", $username, $email, $password, $phone, $role, $user_id);
+        } else {
+            $sql = "UPDATE users SET username = ?, email = ?, phone_number = ?, role = ? WHERE id = ?";
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_bind_param($stmt, "ssssi", $username, $email, $phone, $role, $user_id);
+        }
+
+        if (mysqli_stmt_execute($stmt)) {
+            header("Location: admin_dashboard.php?action=user_updated");
+            exit();
+        } else {
+            echo "<script>alert('Error updating user: " . mysqli_error($conn) . "');</script>";
+        }
     }
 }
 
