@@ -645,7 +645,7 @@ require 'includes/admin_dashboard_logic.php';
                                         <td><?php echo date('M d, H:i', strtotime($event['end_date'])); ?></td>
                                         <td><span class="badge badge-info"><?php echo htmlspecialchars($event['event_organizer'] ?? 'N/A'); ?></span></td>
                                         <td>
-                                            <button class="btn-action btn-edit" title="Edit Event" onclick="editEvent(<?php echo $event['id']; ?>)">
+                                            <button class="btn-action btn-edit" title="Edit Event" onclick="editEvent(<?php echo htmlspecialchars(json_encode($event)); ?>)">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                             <button class="btn-action btn-delete" title="Delete Event" onclick="deleteEvent(<?php echo $event['id']; ?>)">
@@ -707,7 +707,7 @@ require 'includes/admin_dashboard_logic.php';
                             </div>
                         </form>
                     </div>
-                    
+
                     <div class="card-table-wrapper">
                         <div class="table-responsive">
                             <table>
@@ -843,15 +843,27 @@ require 'includes/admin_dashboard_logic.php';
             // Add real CSV export logic if needed
         }
 
-        function editEvent(id) {
-            alert('Opening editor for event ID: ' + id);
+        function editEvent(eventData) {
+            document.getElementById('edit_event_id').value = eventData.id;
+            document.getElementById('edit_event_name').value = eventData.title;
+            document.getElementById('edit_event_location').value = eventData.event_location;
+            document.getElementById('edit_start_date').value = eventData.start_date.replace(' ', 'T').substring(0, 16);
+            document.getElementById('edit_end_date').value = eventData.end_date.replace(' ', 'T').substring(0, 16);
+            document.getElementById('edit_event_description').value = eventData.description;
+            document.getElementById('edit_event_organizer').value = eventData.event_organizer;
+            
+            document.getElementById('eventEditModal').style.display = 'flex';
+        }
+
+        function closeEventEditModal() {
+            document.getElementById('eventEditModal').style.display = 'none';
         }
 
         function deleteEvent(id) {
             if (confirm('Are you sure you want to delete this event? This action cannot be undone.')) {
                 const form = document.createElement('form');
                 form.method = 'POST';
-                form.action = 'includes/admin_dashboard_logic.php';
+                form.action = 'admin_dashboard.php';
                 
                 const inputId = document.createElement('input');
                 inputId.type = 'hidden';
