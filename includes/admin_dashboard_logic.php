@@ -190,6 +190,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             echo "<script>alert('Error updating user: " . mysqli_error($conn) . "');</script>";
         }
+    } elseif (isset($_POST['action']) && $_POST['action'] == 'delete_event') {
+        $event_id = $_POST['event_id'];
+        $sql = "DELETE FROM events WHERE id = ?";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $event_id);
+        
+        if (mysqli_stmt_execute($stmt)) {
+            header("Location: admin_dashboard.php?action=event_deleted");
+            exit();
+        } else {
+            echo "<script>alert('Error deleting event: " . mysqli_error($conn) . "');</script>";
+        }
+    } elseif (isset($_POST['action']) && $_POST['action'] == 'update_event') {
+        $event_id = $_POST['event_id'];
+        $title = trim($_POST['event-name']);
+        $location = trim($_POST['event-location']);
+        $start = $_POST['start-date'];
+        $end = $_POST['end-date'];
+        $desc = trim($_POST['event-description']);
+        $org = trim($_POST['event-organizer']);
+
+        $sql = "UPDATE events SET title = ?, event_location = ?, start_date = ?, end_date = ?, description = ?, event_organizer = ? WHERE id = ?";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "ssssssi", $title, $location, $start, $end, $desc, $org, $event_id);
+        
+        if (mysqli_stmt_execute($stmt)) {
+            header("Location: admin_dashboard.php?action=event_updated");
+            exit();
+        } else {
+            echo "<script>alert('Error updating event: " . mysqli_error($conn) . "');</script>";
+        }
     }
 }
 

@@ -664,6 +664,48 @@ require 'includes/admin_dashboard_logic.php';
                 <section id="user-management" class="content-section">
                     <div class="section-header">
                         <h2>System Users</h2>
+                        <button class="btn btn-primary btn-sm" onclick="showAddUserForm()">
+                            <i class="fas fa-user-plus"></i> Add New User
+                        </button>
+                    </div>
+
+                    <!-- Add User Form (Hidden by default) -->
+                    <div id="add-user-card" class="form-card" style="display: none; margin-bottom: 2rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                            <h3>Create New User Account</h3>
+                            <button class="btn btn-secondary btn-sm" onclick="hideAddUserForm()">Cancel</button>
+                        </div>
+                        <form method="POST" action="admin_dashboard.php">
+                            <input type="hidden" name="action" value="create_user">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Username</label>
+                                    <input type="text" name="username" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" name="email" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" name="password" class="form-control" required minlength="8">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="text" name="phone_number" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">User Role</label>
+                                    <select name="role" class="form-control" required>
+                                        <option value="user">Standard User</option>
+                                        <option value="admin">Administrator</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div style="text-align: right; margin-top: 1.5rem;">
+                                <button type="submit" class="btn btn-primary">Create Account</button>
+                            </div>
+                        </form>
                     </div>
                     
                     <div class="card-table-wrapper">
@@ -691,6 +733,9 @@ require 'includes/admin_dashboard_logic.php';
                                         <td><?php echo date('M d, Y', strtotime($user['created_at'])); ?></td>
                                         <td>
                                             <?php if ($user['id'] != $_SESSION['user_id']): ?>
+                                                <button class="btn-action btn-edit" title="Edit User" onclick="editUser(<?php echo htmlspecialchars(json_encode($user)); ?>)">
+                                                    <i class="fas fa-user-edit"></i>
+                                                </button>
                                                 <?php if ($user['role'] !== 'admin'): ?>
                                                     <button class="btn-action btn-edit" title="Promote to Admin" onclick="promoteUser(<?php echo $user['id']; ?>)">
                                                         <i class="fas fa-user-shield"></i>
@@ -699,6 +744,8 @@ require 'includes/admin_dashboard_logic.php';
                                                 <button class="btn-action btn-delete" title="Delete User" onclick="deleteUser(<?php echo $user['id']; ?>)">
                                                     <i class="fas fa-user-minus"></i>
                                                 </button>
+                                            <?php else: ?>
+                                                <span class="badge badge-info">Current Session</span>
                                             <?php endif; ?>
                                         </td>
                                     </tr>
@@ -801,9 +848,50 @@ require 'includes/admin_dashboard_logic.php';
         }
 
         function deleteEvent(id) {
-            if(confirm('Are you sure you want to delete this event? This action cannot be undone.')) {
-                alert('Event ID ' + id + ' deleted (Simulated)');
+            if (confirm('Are you sure you want to delete this event? This action cannot be undone.')) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = 'includes/admin_dashboard_logic.php';
+                
+                const inputId = document.createElement('input');
+                inputId.type = 'hidden';
+                inputId.name = 'event_id';
+                inputId.value = id;
+                
+                const inputAction = document.createElement('input');
+                inputAction.type = 'hidden';
+                inputAction.name = 'action';
+                inputAction.value = 'delete_event';
+                
+                form.appendChild(inputId);
+                form.appendChild(inputAction);
+                document.body.appendChild(form);
+                form.submit();
             }
+        }
+
+        // User Management Functions
+        function showAddUserForm() {
+            document.getElementById('add-user-card').style.display = 'block';
+            window.scrollTo({ top: document.getElementById('add-user-card').offsetTop - 100, behavior: 'smooth' });
+        }
+
+        function hideAddUserForm() {
+            document.getElementById('add-user-card').style.display = 'none';
+        }
+
+        function editUser(user) {
+            document.getElementById('edit_user_id').value = user.id;
+            document.getElementById('edit_username').value = user.username;
+            document.getElementById('edit_email').value = user.email;
+            document.getElementById('edit_phone').value = user.phone_number;
+            document.getElementById('edit_role').value = user.role;
+            
+            document.getElementById('userEditModal').style.display = 'flex';
+        }
+
+        function closeEditModal() {
+            document.getElementById('userEditModal').style.display = 'none';
         }
 
         function promoteUser(id) {
