@@ -1,73 +1,107 @@
-# EventHub - Modern Event Management System
+# EventHub Event Management System
 
-EventHub is a professional, responsive, and robust web application built with PHP and MySQL. It streamlines the entire event lifecycle, from creation and registration to attendee management and communication.
+EventHub is a PHP and MySQL-based event management platform for organizing events, registering attendees, sending notifications, and managing users from separate admin and user dashboards.
 
-## 🚀 Key Features
+## Overview
 
-### For Administrators
-- **Comprehensive Dashboard**: Real-time stats on events, registrations, and engagement.
-- **Event Lifecycle Management**: Create, edit, and delete events with a modern UI.
-- **User Management**: Promote users to admins or remove accounts securely.
-- **Communication Hub**: Send mass notifications and reminders to event participants.
-- **Data Portability**: Export event and attendee data to CSV for external reporting.
+The application includes a public landing page, account registration and login, an admin dashboard for event and user management, and a user dashboard for browsing events, registering, managing profiles, and viewing notifications.
 
-### For Users
-- **Event Discovery**: Browse upcoming events through a sleek, card-based interface.
-- **Easy Registration**: Quick sign-up process for events with automated profile tracking.
-- **Personal Dashboard**: Track "My Registrations" and upcoming scheduled events.
-- **Responsive Experience**: Fully optimized for mobile, tablet, and desktop viewing.
+## Features
 
-## 🛠️ Technology Stack
-- **Backend**: PHP 8.x
-- **Database**: MySQL (with automated schema generation)
-- **Frontend**: Vanilla HTML5, Modern CSS (Flexbox/Grid), Vanilla JavaScript
-- **Icons & Fonts**: FontAwesome 6, Google Fonts (Inter)
+### Public Access
+- Landing page with a modern marketing layout
+- Sign up and login pages
+- Responsive design for desktop and mobile browsers
 
-## 📁 Project Structure
+### User Dashboard
+- Browse upcoming events
+- Register for events
+- View registered events
+- Cancel event registrations
+- Update profile details
+- Change password
+- View event notifications
+
+### Admin Dashboard
+- Create, edit, and delete events
+- View event lists and attendee lists
+- Create, update, promote, and delete users
+- Send reminder notifications to event attendees
+- Export event data to CSV
+
+## Technology Stack
+
+- Backend: PHP
+- Database: MySQL
+- Frontend: HTML, CSS, JavaScript
+- UI libraries: Font Awesome, Google Fonts
+
+## Project Structure
+
 ```text
-├── assets/                 # Static assets
-│   ├── css/                # Design system and page styles
-│   ├── js/                 # Frontend logic and interactions
-│   └── img/                # Project images and backgrounds
-├── includes/               # Core backend logic
-│   ├── db.php              # Automated database connection & setup
-│   ├── header.php          # Session and global navigation logic
+├── homepage.php            # Public landing page
+├── loginphp.php            # Login form and authentication handler
+├── Interface_register.php  # Sign-up form
+├── admin_dashboard.php     # Admin dashboard UI
+├── user_dashboard.php      # User dashboard UI
+├── includes/
+│   ├── db.php              # Database connection and schema bootstrap
+│   ├── header.php          # Shared session/header helper
 │   ├── admin_dashboard_logic.php
-│   └── user_dashboard_logic.php
-├── admin_dashboard.php     # Admin interface
-├── user_dashboard.php      # User interface
-├── loginphp.php            # Secure authentication
-├── Interface_register.php  # Unified registration form
-└── homepage.php            # Landing page (Auto-initializes DB)
+│   ├── user_dashboard_logic.php
+│   ├── events.php
+│   ├── cancelRegistration.php
+│   ├── export_csv.php
+│   ├── fetch_notifications.php
+│   ├── register.php
+│   └── send_notification.php
+└── assets/
+    ├── css/
+    ├── js/
+    └── img/
 ```
 
-## ⚙️ Installation & Setup
+## Database
 
-1. **Prerequisites**: 
-   - XAMPP / WAMP / MAMP or any PHP environment.
-   - MySQL Server.
+The database connection file, [includes/db.php](includes/db.php), creates the database automatically if it does not already exist and sets up these tables:
 
-2. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/yihune1234/Event-Management-System.git
-   ```
+- `users`
+- `events`
+- `registrations`
+- `notifications`
 
-3. **Deploy to local server**:
-   Place the project folder in your `htdocs` or equivalent directory.
+Database name: `event_management`
 
-4. **Initialize Database**:
-   Simply navigate to `homepage.php` in your browser. The system is designed to **automatically create the database and all required tables** on the first run.
+## Installation
 
-5. **First Admin**:
-   Register a new account via the sign-up page. To make it an admin, manually update the `role` field to `'admin'` in the `users` table via PHPMyAdmin for the first user. Subsequent admins can be promoted directly through the Admin Dashboard.
+1. Install a local PHP stack such as XAMPP, WAMP, or MAMP.
+2. Copy the project folder to your web server directory, such as `htdocs`.
+3. Make sure MySQL is running.
+4. Open [homepage.php](homepage.php) in your browser.
 
-## 🔒 Security
-- **Prepared Statements**: Used for all SQL queries to prevent SQL injection.
-- **Password Hashing**: Uses PHP's `password_hash()` with BCRYPT for secure storage.
-- **Role-Based Access Control (RBAC)**: Strict server-side checks for admin and user routes.
+On first load, the app will create the database and required tables automatically.
 
-## 👥 System Contributors
-Developed with ❤️ by the **SWE 3rd Year Vision Group**.
+## First-Time Admin Setup
 
----
-© 2026 EventHub Management. All rights reserved.
+New sign-ups are created with the `user` role by default. To access the admin dashboard for the first time, set one account to `admin` in the `users` table through phpMyAdmin or another MySQL client. After that, admins can manage roles from the dashboard.
+
+## Usage
+
+- Public visitors can sign up from [Interface_register.php](Interface_register.php) and log in through [loginphp.php](loginphp.php).
+- Regular users are redirected to [user_dashboard.php](user_dashboard.php).
+- Admin users are redirected to [admin_dashboard.php](admin_dashboard.php).
+
+## Security Notes
+
+- Passwords are hashed with PHP’s `password_hash()`.
+- Admin and user pages check session role before granting access.
+- Some legacy helper scripts under `includes/` still use direct SQL interpolation, so the codebase should be reviewed before production deployment.
+
+## Notes
+
+- The project is intended for local development or classroom/demo use.
+- Static assets and page styling live under [assets/](assets/).
+
+## License
+
+No license has been specified for this project.
