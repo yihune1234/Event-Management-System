@@ -3,56 +3,191 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>contact us</title>
+    <title>Contact | EventHub</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f9fc;
+        --surface: #ffffff;
+        --text: #1f2937;
+        --muted: #6b7280;
+        --border: #dbe3ef;
+        --accent: #2563eb;
+        --accent-soft: rgba(37, 99, 235, 0.08);
+        --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, Arial, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(37, 99, 235, 0.08), transparent 30%),
+          linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+        color: var(--text);
+        line-height: 1.7;
+      }
+
+      .page {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 56px 20px 72px;
+      }
+
+      .hero {
+        background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 100%);
+        color: #fff;
+        border-radius: 28px;
+        padding: 40px;
+        box-shadow: var(--shadow);
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.14);
+        font-size: 0.85rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 18px 0 10px;
+        font-size: clamp(2rem, 4vw, 3.3rem);
+        line-height: 1.1;
+      }
+
+      .content {
+        margin-top: 28px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .section {
+        padding: 28px 32px;
+        border-top: 1px solid var(--border);
+      }
+
+      .section:first-child {
+        border-top: 0;
+      }
+
+      h2 {
+        margin: 0 0 14px;
+        font-size: 1.25rem;
+      }
+
+      p {
+        margin: 0 0 14px;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 22px;
+      }
+
+      li {
+        margin: 10px 0;
+      }
+
+      .contact-card {
+        margin-top: 18px;
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: var(--accent-soft);
+        border: 1px solid rgba(37, 99, 235, 0.16);
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .footer-note {
+        padding: 18px 32px 32px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          padding: 20px 14px 40px;
+        }
+
+        .hero,
+        .section,
+        .footer-note {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+
+        .hero {
+          border-radius: 22px;
+        }
+
+        .content {
+          border-radius: 22px;
+        }
+      }
+    </style>
   </head>
   <body>
-    <h2>Contact Us</h2>
-    <p>If you have any questions, concerns, or feedback regarding the
-    <strong>Event Management System </strong> or the proposal, please feel free to reach out to
-    us. We are here to assist you! </p>
-    <h3>Haramaya University </h3>
-    <p><strong>College of Computing and Informatics</strong></p>
-    <p><strong> Department of Software Engineering </strong></p>
-    <p><strong>Address:</strong> </p> <br>
-    Haramaya University<br>
-    P.O. Box [Insert P.O. Box Number] <br>
-    Haramaya, Oromia, Ethiopia<br>
-    <strong>Email:</strong> [Insert Contact Email] <br>
-    <strong>Phone: </strong>[Insert Contact Phone Number] <br>
-    <strong>Office Hours: </strong><br>
-    Monday - Friday: 8:00 AM - 5:00 PM (EAT)<br>
-    Saturday: 9:00 AM - 12:00 PM (EAT)<br>
-    Sunday:closed <br>
-  <h2>Project Team Contact Information: </h2>
-    <p>For specific inquiries related to the Event Management System project, you can contact the project
-    team members directly: </p> 
-    <ul>
-      <li> <strong>Yohanis Tesfa</strong>-Team Leader</li>
-        Email: yohanis@gmail.com <br>
-        Phone: 09<br>
+    <main class="page">
+      <section class="hero" aria-labelledby="contact-title">
+        <span class="eyebrow">EventHub</span>
+        <h1 id="contact-title">Contact Us</h1>
+        <p>
+          Questions about the platform, event management, or your account? Use the contact details below
+          to reach the project team.
+        </p>
+      </section>
 
-      <li> <strong>Meti Yonas</strong>-Developer</li>
-          Email: meti@gmail.com <br>
-          Phone: 09<br>
+      <div class="content">
+        <section class="section">
+          <h2>Project Team</h2>
+          <ul>
+            <li><strong>Yohanis Tesfa</strong> - Team Leader - yohanis@gmail.com</li>
+            <li><strong>Meti Yonas</strong> - Developer - meti@gmail.com</li>
+            <li><strong>Yihune Belay</strong> - UI/UX Designer - yihune@gmail.com</li>
+            <li><strong>Nedhi Jemal</strong> - Developer - nedhi@gmail.com</li>
+            <li><strong>Yohannes Getaneh</strong> - Tester - jhongmail.com</li>
+          </ul>
+        </section>
 
-      <li> <strong>Yihune Belay</strong>-UI/UX Designer</li>
-            Email: yihune@gmail.com <br>
-            Phone: 09<br>
+        <section class="section">
+          <h2>Institutional Contact</h2>
+          <p><strong>Haramaya University</strong></p>
+          <p>College of Computing and Informatics</p>
+          <p>Department of Software Engineering</p>
+          <div class="contact-card">
+            <p><strong>Email:</strong> visionteam@gmail.com</p>
+            <p><strong>Phone:</strong> 0994053112</p>
+          </div>
+        </section>
 
-      <li> <strong>Nedhi Jemal</strong>-Developer</li>
-            Email: nedhi@gmail.com <br>
-            Phone: 09<br>
+        <section class="section">
+          <h2>Related Pages</h2>
+          <p>
+            Review our <a href="terms.html">Terms of Use</a> and <a href="privacypolicy.html">Privacy Policy</a>
+            for more information about using EventHub.
+          </p>
+        </section>
 
-     <li> <strong>Yohannes Getaneh</strong>-Tester</li>
-            Email: jhongmail.com <br>
-            Phone: 09<br>        
-    </ul>
-    
-    <h2>Faculty Advisor </h2> <br>
-    <strong>Mr. Fufa </strong><br>
-    Email: [Faculty Advisor Email] <br>
-    Phone: [Faculty Advisor Phone] <br> 
-    <p>We value your feedback and are committed to providing you with the best possible support. Please don’t hesitate to contact us for any assistance or inquiries related to the
-    <strong>Event Management System.</strong> Thank you for your interest in our project!</p>
+        <div class="footer-note">
+          We aim to respond as quickly as possible during normal working hours.
+        </div>
+      </div>
+    </main>
   </body>
 </html>
