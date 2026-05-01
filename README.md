@@ -1,6 +1,6 @@
 # EventHub Event Management System
 
-EventHub is a PHP and MySQL-based event management platform for organizing events, registering attendees, sending notifications, and managing users from separate admin and user dashboards.
+EventHUbEvent Management System is a PHP and MySQL-based event management platform for organizing events, registering attendees, sending notifications, and managing users from separate admin and user dashboards.
 
 ## Overview
 
