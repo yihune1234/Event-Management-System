@@ -34,10 +34,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif ($action == 'delete') {
         // Delete event
         $event_id = filter_var($_POST['event_id'], FILTER_VALIDATE_INT);
+        if ($event_id === false) {
+            echo "error=Invalid event ID.";
+            return;
+        }
         $query = "DELETE FROM events WHERE id = ?";
         $stmt = mysqli_prepare($conn, $query);
         mysqli_stmt_bind_param($stmt, "i", $event_id);
-        mysqli_stmt_execute($stmt);
+        if (mysqli_stmt_execute($stmt)) {
+            echo "success=Event deleted successfully!";
+        } else {
+            echo "error=Failed to delete event: " . mysqli_stmt_error($stmt);
+        }
         mysqli_stmt_close($stmt);
     }
 }
