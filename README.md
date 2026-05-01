@@ -1,4 +1,4 @@
-# EventHub Event Management System
+[# EventHub Event Management System
 
 EventHUbEvent Management System is a PHP and MySQL-based event management platform for organizing events, registering attendees, sending notifications, and managing users from separate admin and user dashboards.
 
@@ -104,4 +104,4 @@ New sign-ups are created with the `user` role by default. To access the admin da
 
 ## License
 
-No license has been specified for this project.
+No license has been specified for this project.](https://github.com/yihune1234/Event-Management-System/tasks/c4b87d5a-7b80-44e7-b783-40fc843ad955)
