@@ -12,12 +12,16 @@ $user_id = $_SESSION['user_id'];
 $scheduledEventsQuery = "SELECT e.id, e.title 
                          FROM registrations r 
                          JOIN events e ON r.event_id = e.id 
-                         WHERE r.user_id = '$user_id'";
-$scheduledEventsResult = mysqli_query($conn, $scheduledEventsQuery);
+                         WHERE r.user_id = ?";
+$stmtFetch = mysqli_prepare($conn, $scheduledEventsQuery);
+mysqli_stmt_bind_param($stmtFetch, "i", $user_id);
+mysqli_stmt_execute($stmtFetch);
+$scheduledEventsResult = mysqli_stmt_get_result($stmtFetch);
 $scheduledEvents = array();
 while ($row = mysqli_fetch_assoc($scheduledEventsResult)) {
     $scheduledEvents[] = $row;
 }
+mysqli_stmt_close($stmtFetch);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $event_id = filter_var($_POST['event_id'], FILTER_SANITIZE_NUMBER_INT);
@@ -104,12 +108,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <div class="container">
         <h2>Cancel Registration</h2>
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
             <div class="form-group">
                 <label for="event_id">Select Event:</label>
                 <select id="event_id" name="event_id" required>
                     <?php foreach ($scheduledEvents as $event) { ?>
-                        <option value="<?php echo $event['id']; ?>"><?php echo $event['title']; ?></option>
+                        <option value="<?php echo htmlspecialchars($event['id']); ?>"><?php echo htmlspecialchars($event['title']); ?></option>
                     <?php } ?>
                 </select>
             </div>
