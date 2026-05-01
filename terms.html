@@ -3,87 +3,282 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>terms of service</title>
+    <title>Terms of Use | EventHub</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f9fc;
+        --surface: #ffffff;
+        --text: #1f2937;
+        --muted: #6b7280;
+        --border: #dbe3ef;
+        --accent: #2563eb;
+        --accent-soft: rgba(37, 99, 235, 0.08);
+        --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, Arial, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(37, 99, 235, 0.08), transparent 30%),
+          linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+        color: var(--text);
+        line-height: 1.7;
+      }
+
+      .page {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 56px 20px 72px;
+      }
+
+      .hero {
+        background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 100%);
+        color: #fff;
+        border-radius: 28px;
+        padding: 40px;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        right: -80px;
+        top: -80px;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.14);
+        font-size: 0.85rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 18px 0 10px;
+        font-size: clamp(2rem, 4vw, 3.3rem);
+        line-height: 1.1;
+      }
+
+      .hero p,
+      .meta,
+      .section p,
+      .section li {
+        color: inherit;
+      }
+
+      .meta {
+        margin: 0;
+        opacity: 0.9;
+      }
+
+      .content {
+        margin-top: 28px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .section {
+        padding: 28px 32px;
+        border-top: 1px solid var(--border);
+      }
+
+      .section:first-child {
+        border-top: 0;
+      }
+
+      h2 {
+        margin: 0 0 14px;
+        font-size: 1.25rem;
+      }
+
+      p {
+        margin: 0 0 14px;
+        color: var(--text);
+      }
+
+      ul,
+      ol {
+        margin: 0;
+        padding-left: 22px;
+      }
+
+      li {
+        margin: 8px 0;
+        color: var(--text);
+      }
+
+      .callout {
+        margin-top: 18px;
+        padding: 16px 18px;
+        border-radius: 18px;
+        background: var(--accent-soft);
+        border: 1px solid rgba(37, 99, 235, 0.16);
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .footer-note {
+        padding: 18px 32px 32px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      @media (max-width: 640px) {
+        .page {
+          padding: 20px 14px 40px;
+        }
+
+        .hero,
+        .section,
+        .footer-note {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+
+        .hero {
+          border-radius: 22px;
+        }
+
+        .content {
+          border-radius: 22px;
+        }
+      }
+    </style>
   </head>
   <body>
-    <h1>Terms of Use for Event Management System</h1>
-    <p>
-      These Terms of Use ("Terms") govern your access to and use of the Event
-      Management System (referred to as "the System") proposed by the Department
-      of Software Engineering at Haramaya University. By accessing or using the
-      System, you agree to be bound by these Terms.</p> 
-  
-      <P> <strong>1. Acceptance of Terms</strong></P>
-      By using the System, you acknowledge that you have read, understood, and agree to be
-      bound by these Terms. </p>
-      <P><strong> 2.Eligibility</strong></P>
-<p>
-      <ul>
-           <li>Be at least 18 years old or have the consent of a legal guardian.</li>
-           <li> Provide accurate and complete information during registration. </li>
-           <li> Comply with all applicable laws and regulations.</li>
-      </ul>
-</p>
-         <P><strong> 3.User Responsibilities</strong></p> 
-          <p>Users agree to provide accurate information and comply with legal regulations.</p>
+    <main class="page">
+      <section class="hero" aria-labelledby="terms-title">
+        <span class="eyebrow">EventHub</span>
+        <h1 id="terms-title">Terms of Use</h1>
+        <p class="meta">Effective date: May 2, 2026</p>
+        <p>
+          These Terms of Use govern your access to and use of the EventHub event management platform,
+          including the public website, registration pages, and user or admin dashboards.
+        </p>
+      </section>
 
-      <p><strong> Prohibited Activities:</strong> You may not:</p>
-       <ul>
-           <li> Use the System for any illegal or unauthorized purpose.</li>
-           <li> Attempt to gain unauthorized access to the System or its related systems. </li>
-           <li>Interfere with or disrupt the System's functionality or security. </li>
-           <li>Upload or share content that is harmful, offensive, or violates the rights of others.</li> 
-       </ul>
+      <div class="content">
+        <section class="section">
+          <h2>1. Acceptance of Terms</h2>
+          <p>
+            By accessing or using EventHub, you agree to these Terms and to any additional rules or
+            policies posted on the site.
+          </p>
+        </section>
 
-<p><strong> 4. System Functionality</strong></p> 
-      <ol>
-         <li>Centralized Event Management: Organizers can create, update, and manage event details in one platform. </li>
-         <li>Participant Registration: Participants can register for events, and organizers can track registrations and payments. </li>
-         <li>Automated Communication: The System sends automated reminders and updates via email or SMS. </li> 
-         <li>Scheduling Tools: Organizers can manage event schedules and display agendas.</li>
-         <li>Analytics Dashboard: Organizers can access data on attendee engagement and feedback.</li>
-      </ol>  
+        <section class="section">
+          <h2>2. Eligibility and Accounts</h2>
+          <ul>
+            <li>You must provide accurate, current, and complete information when creating an account.</li>
+            <li>You are responsible for keeping your login credentials secure.</li>
+            <li>You must not impersonate another person or create an account using false information.</li>
+          </ul>
+        </section>
 
-<p><strong> 5. Intellectual Property</strong></p> 
-<p>The System is the intellectual property of Haramaya University. Unauthorized copying or distribution is prohibited.</p>
+        <section class="section">
+          <h2>3. User Responsibilities</h2>
+          <p>When using the platform, you agree to use it lawfully and respectfully.</p>
+          <ul>
+            <li>Do not misuse the site or attempt unauthorized access to data, accounts, or systems.</li>
+            <li>Do not interfere with the availability, performance, or security of the service.</li>
+            <li>Do not upload harmful, abusive, misleading, or unlawful content.</li>
+            <li>Do not use the platform to violate applicable laws or the rights of others.</li>
+          </ul>
+        </section>
 
+        <section class="section">
+          <h2>4. Platform Functionality</h2>
+          <ol>
+            <li>Users can browse available events and register for events from the dashboard.</li>
+            <li>Admins can create, update, and delete events.</li>
+            <li>Admins can manage user accounts and promote users to admin roles.</li>
+            <li>Users can update profiles, change passwords, and cancel registrations.</li>
+            <li>The system may display notifications and allow CSV export of event data.</li>
+          </ol>
+        </section>
 
-<p> <strong> 6. Privacy </strong></p>
-<p>Your use of the System is subject to our Privacy Policy.</p>
+        <section class="section">
+          <h2>5. Event Registration</h2>
+          <p>
+            Event registration is subject to event availability and organizer rules. Registration records
+            may be stored in the system for administrative and reporting purposes.
+          </p>
+          <p>
+            EventHub does not guarantee that all events will remain available, unchanged, or open for
+            registration at all times.
+          </p>
+        </section>
 
+        <section class="section">
+          <h2>6. Privacy</h2>
+          <p>
+            Your use of the platform is also governed by our <a href="privacypolicy.html">Privacy Policy</a>.
+            Please review it to understand how account and registration information is handled.
+          </p>
+        </section>
 
-  <p> <strong>7. Payment Terms (if applicable)</strong></p>
-  <p> If the System involves payment processing for event registration or other services:</p>
-<ul>
-      <li>Payment Processing: Payments will be processed through a secure third-party payment gateway. </li>
-      <li>Refunds: Refund policies will be determined by the event organizer and communicated to participants during registration.</li>
-</ul>
-<p><strong> 8. Limitation of Liability </strong></p> 
-<p>The System is provided "as is" without any warranties.</p>
+        <section class="section">
+          <h2>7. Intellectual Property</h2>
+          <p>
+            The EventHub name, interface, and content provided by the project are protected by applicable
+            intellectual property laws. You may not copy or redistribute the system content without
+            permission.
+          </p>
+        </section>
 
+        <section class="section">
+          <h2>8. Service Availability</h2>
+          <p>
+            The platform is provided on an "as is" and "as available" basis. We may modify, suspend, or
+            discontinue any part of the service at any time.
+          </p>
+        </section>
 
-<p> <strong> 9. Termination </strong></p>
-<p> Haramaya University reserves the right to suspend or terminate your access for violations.</p>
+        <section class="section">
+          <h2>9. Changes to These Terms</h2>
+          <p>
+            We may update these Terms from time to time. Continued use of the platform after updates means
+            you accept the revised Terms.
+          </p>
+        </section>
 
+        <section class="section">
+          <h2>10. Contact</h2>
+          <p>If you have questions about these Terms, please contact the project team through the contact page.</p>
+          <div class="callout">
+            <a href="contact.html">Go to Contact Page</a>
+          </div>
+        </section>
 
-<p><strong> 10. Changes to Terms</strong></p>
-<p>Terms may be updated, and continued use signifies acceptance of changes.</p>
-
-      
- <p><strong> 11. Governing Law </strong></p>
- <p>These Terms are governed by the laws of Ethiopia.</p>
-
- <p>  Contact Information If you have any questions or concerns about these Terms,
-      please contact us at: </p>
-     
-<p><em>Haramaya University </em></p>
-<p><em>College of Computing and Informatics</em> </p>
-<p><em>Department of Software Engineering </em></p>
-<ul> 
-<li> <p> Email: visionteam@gmail.com </li> </p>
-<li> <p> Phone: 0994053112 </li></P> 
-</ul>
-<p> By using the Event Management System, you agree to these Terms of Use. </p>
-<p> Thank you for choosing our System for your event management needs.</p>
+        <div class="footer-note">
+          By using EventHub, you acknowledge that you have read and understood these Terms of Use.
+        </div>
+      </div>
+    </main>
   </body>
 </html>
